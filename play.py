@@ -205,3 +205,34 @@ while True:
     #move to next level
     next_node=search_state(current_node.level+1,current_board,new_master_list)
     current_node_list=next_node.next
+
+
+print("Showing ultimate strategy (from 2 machines): ")
+player_piece_type = 1
+current_node_list = new_master_list[0]
+piece_type = 0
+while True:
+
+    print("Machine 1 makes move: ")
+    current_node = make_move(current_node_list,piece_type)
+    current_board=current_node.board
+    view_board(current_board)
+    if game_over(current_board) == 1:
+        print("It's a draw!")
+        break
+    if decide_win(piece_type,current_board)==1:
+        print("Machine 1 Wins!")
+        break
+    
+    print("Machine 2 makes move: ")
+    current_node = make_move(current_node.next,player_piece_type)
+    current_board=current_node.board
+    view_board(current_board)
+    if game_over(current_board) == 1:
+        print("It's a draw!")
+        break
+    if decide_win(player_piece_type,current_board)==1:
+        print("Machine 2 Wins!")
+        break
+    
+    current_node_list = current_node.next
